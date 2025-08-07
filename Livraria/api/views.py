@@ -1,8 +1,18 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .models import Bibliotecario
+from rest_framework import generics
+from .models import Livro, Autor
+from .serializers import LivroSerializer, AutorSerializer
 
-class ListarBibliotecario(APIView):
-    def get(self, request):
-        listaBibliotecarios = Bibliotecario.nome
-        return Response(listaBibliotecarios)
+class LivroListCreate(generics.ListCreateAPIView):
+    queryset = Livro.objects.all()
+    serializer_class = LivroSerializer
+
+
+class LivroRetrieve(generics.RetrieveAPIView):
+    queryset = Livro.objects.all()
+    serializer_class = LivroSerializer
+
+
+class AutorListCreate(generics.ListCreateAPIView):
+    queryset = Autor.objects.all()
+    serializer_class = AutorSerializer
+
