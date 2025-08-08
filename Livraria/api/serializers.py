@@ -2,9 +2,10 @@ from rest_framework import serializers
 from .models import Livro, Autor
 
 class LivroSerializer(serializers.ModelSerializer):
+    autor_nome = serializers.StringRelatedField(source="autor", read_only=True)
     class Meta:
         model = Livro
-        fields = '__all__'
+        fields = ['id', 'titulo' , 'autor' , 'autor_nome']
 
 class AutorSerializer(serializers.ModelSerializer):
     livros = LivroSerializer(many = True, read_only = True)
