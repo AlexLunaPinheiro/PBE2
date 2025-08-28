@@ -1,11 +1,10 @@
 from rest_framework import serializers
-from .models import Livro, Autor
+from .models import Livro, Autor, Editora
 
 class LivroSerializer(serializers.ModelSerializer):
-    autor_nome = serializers.StringRelatedField(source="autor", read_only=True)
     class Meta:
         model = Livro
-        fields = ['id', 'titulo' , 'autor' , 'autor_nome','ano']
+        fields = "__all__"
 
 class AutorSerializer(serializers.ModelSerializer):
     livros = LivroSerializer(many = True, read_only = True)
@@ -13,3 +12,8 @@ class AutorSerializer(serializers.ModelSerializer):
         model = Autor
         fields = ['id','nome','sobrenome','data_nasc','nacionalidade','biografia','livros']
 
+
+class EditoraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Editora
+        fields = "__all__"
