@@ -16,7 +16,7 @@ class Command(BaseCommand):
         df.columns = [c.strip().lower().lstrip("\ufeff") for c in df.columns]
 
         if o["truncate"]:
-            Autor.objects.all().delete
+            Autor.objects.all().delete()
 
         df["nome"] = df["nome"].astype(str).str.strip()
         df["sobrenome"] = df["sobrenome"].astype(str).str.strip()
@@ -35,9 +35,8 @@ class Command(BaseCommand):
                 )
                 criados += int(created)
                 atualizados +=(not created)
-
-
             self.stdout.write(self.style.SUCCESS(f"Criados: {criados} | Atualizados: {atualizados}"))
+        
         else:
             objs = [Autor(
                 nome=r.nome, sobrenome = r.sobrenome, data_nasc= r.data_nasc, nacionalidade = r.nacionalidade

@@ -16,7 +16,7 @@ class Command(BaseCommand):
         df.columns = [c.strip().lower().lstrip("\ufeff") for c in df.columns]
 
         if o["truncate"]:
-            Editora.objects.all().delete
+            Editora.objects.all().delete()
 
         df["editora"] = df["editora"].astype(str).str.strip()
         df["cnpj"] = df["cnpj"].astype(str).str.strip()

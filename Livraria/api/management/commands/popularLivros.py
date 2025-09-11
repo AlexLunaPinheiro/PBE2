@@ -16,7 +16,7 @@ class Command(BaseCommand):
         df.columns = [c.strip().lower().lstrip("\ufeff") for c in df.columns]
 
         if o["truncate"]:
-            Livro.objects.all().delete
+            Livro.objects.all().delete()
 
         df["titulo"] = df["titulo"].astype(str).str.strip()
         df["subtitulo"] = df["subtitulo"].astype(str).str.strip()
