@@ -9,28 +9,13 @@
 
 <body>
     <main>
-            <!-- Quando o botão de envio do formulario for clicado, muda de pagina -->
-            <form class="login-form" onsubmit="event.preventDefault(); window.location.href='listarFilmes.html';">
-                <h1>Bem vindo!</h1>
-                
-                <!-- Seção do input do nome do usuário-->
-                <section class="login-field">
-                    <label for="usuario">USUARIO:</label>   
-                    <input type="text" placeholder="Digite seu username:">
-                </section>
-               
-                <!-- Seção do input da senha do usuário-->
-                <section class="login-field">
-                    <label for="password">SENHA:</label>
-                    <input type="text" placeholder="Digite sua senha:">
-                </section>
-                
-                <!-- Seção do botão de entrar e esqueci minha senha  -->
-                <section class="login-field-button">
-                    <button type="submit">ENTRAR</button>
-                    <a href="cadastro.html">Esqueci minha senha</a>
-                </section>
-                
+            <form class = "login-form">
+                <label for="usuario">USERNAME:</label>   
+                <input type="text" placeholder="Digite seu username:">
+                <label for="password">PASSWORD: </label>
+                <input type="text" placeholder="Digite sua senha:">
+                <button type = "submit">Enviar Login</button>
+                <a href="cadastro.html">Esqueci minha senha</a>
             </form>
     </main>
 

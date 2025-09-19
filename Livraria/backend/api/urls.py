@@ -1,10 +1,16 @@
-from django.urls import path
-from .views import AutorView, LivroView, EditoraView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from api.views.auth_views import RegisterViewSet
+from api.views.autores_views import AutorView
+from api.views.editora_views import EditoraView
+from api.views.livro_views import LivroView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
+router = DefaultRouter()
+router.register(r'registro',RegisterViewSet, basename='registro')
 urlpatterns = [
     path('autor/', AutorView.as_view()),
     path('autor/<int:pk>',AutorView.as_view()),
@@ -17,4 +23,6 @@ urlpatterns = [
 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('',include(router.urls))
 ]
