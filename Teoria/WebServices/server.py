@@ -1,5 +1,9 @@
 import os
 from http.server import SimpleHTTPRequestHandler, HTTPServer
+from urllib.parse import parse_qs
+import json
+
+filmes = {}
 
 #Classe para manipular os métodos e requisições feitas em nosso servidor
 class MyHandle (SimpleHTTPRequestHandler):
@@ -64,13 +68,67 @@ class MyHandle (SimpleHTTPRequestHandler):
         else:
             #Mostra a mensagem de error response no html
             super().do_GET()
+
+    def accont_user(self, user, password):
+        usuario = "alex@gmail.com"
+        senha = "123456"
+ 
+        if user == usuario and senha == password:
+            print("Usuário Logado")
+            self.carregarArquivo("listarFilmes.html")
+        
+    def do_POST(self):
+            if self.path == '/send_login':
+                content_length = int(self.headers['Content-length'])
+                body = self.rfile.read(content_length).decode('utf-8')
+                form_data = parse_qs(body)
+    
+                login = form_data.get('usuario', [""])[0]
+                password = form_data.get('senha', [""])[0]
+    
+                self.accont_user(login, password)
+                print("Data Form:")
+                print("Usuario: ", login)        
+                print("Password: ", password)    
+
+
+
+            elif self.path == '/send_movies':
+                content_length= int(self.headers['Content-length'])
+                body = self.rfile.read(content_length).decode('utf-8')
+                form_data = parse_qs(body)
+
+                nome = form_data.get('nome', [""])[0]
+                ano = form_data.get('ano', [""])[0]
+                atores = form_data.get('atores',[""])[0]
+                genero = form_data.get('genero',[""])[0]
+                diretor = form_data.get('diretor',[""])[0]
+                produtora = form_data.get('produtora',[""])[0]
+                sinopse = form_data.get('sinpose',[""])[0]
+
+                filme = {
+                    "nome": nome,
+                    "ano":ano,
+                    "atores":atores,
+                    "genero":genero,
+                    "diretor":diretor,
+                    "produtora":produtora,
+                    "sinopse":sinopse
+                }
+
+                filmes[len(filmes)+1] = filme
+                print(filmes)
+
+
+            else:
+                super(MyHandle, self).do_POST()
         
 #Função principal do programa
 def main():
     port = 8001#Define a porta em que estará rodando o servidor
     server_addres = ('', port)
     httpd = HTTPServer(server_addres, MyHandle)#Variavel que armazena o nosso servidor
-    print(f"Servidor rodando em http://127.0.0.1:{port}")
+    print(f"Servidor rodando em http://127.0.0.2:{port}")
     httpd.serve_forever()#Deixa o servidor rodando eternamente
 
 

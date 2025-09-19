@@ -10,7 +10,7 @@
 <body>
     <main>
         <!-- Quando o botão de envio do formulario for clicado, muda de pagina -->
-        <form class="register-form" onsubmit="event.preventDefault(); window.location.href='login.html';">
+        <form class="register-form" action="/send_movies" method="POST" >
 
             <h1>Cadastro de Filme</h1>
 
@@ -20,43 +20,43 @@
                 <!-- Seção do input do nome do filme-->
                 <section class="register-field">
                     <label for="nome">Nome do Filme:</label>   
-                    <input type="text" id="nome" placeholder="Digite o nome do filme">
+                    <input type="text" id="nome" placeholder="Digite o nome do filme" name="nome">
                 </section>
                 
                 <!-- Seção do input do ano de lançamento-->
                 <section class="register-field">
                     <label for="ano">Ano:</label>
-                    <input type="text" id="ano" placeholder="Digite o ano de lançamento">
+                    <input type="text" id="ano" placeholder="Digite o ano de lançamento" name="ano">
                 </section>
 
                 <!-- Seção do input dos atores-->
                 <section class="register-field">
                     <label for="atores">Atores:</label>
-                    <input type="text" id="atores" placeholder="Digite os atores principais">
+                    <input type="text" id="atores" placeholder="Digite os atores principais" name="atores">
                 </section>
 
                 <!-- Seção do input do gênero -->
                 <section class="register-field">
                     <label for="genero">Gênero:</label>
-                    <input type="text" id="genero" placeholder="Digite o gênero do filme">
+                    <input type="text" id="genero" placeholder="Digite o gênero do filme" name="genero">
                 </section>
 
                 <!-- Seção do input do diretor -->
                 <section class="register-field">
                     <label for="diretor">Diretor:</label>
-                    <input type="text" id="diretor" placeholder="Digite o diretor">
+                    <input type="text" id="diretor" placeholder="Digite o diretor" name="diretor">
                 </section>
 
                 <!-- Seção do input da produtora -->
                 <section class="register-field">
                     <label for="produtora">Produtora:</label>
-                    <input type="text" id="produtora" placeholder="Digite a produtora">
+                    <input type="text" id="produtora" placeholder="Digite a produtora" name="produtora">
                 </section>
 
                 <!-- Seção do texarea de sinopse, a classe full width faz o elemento ocupar todo o espaço do form -->
                 <section class="register-field full-width">
                     <label for="sinopse">Sinopse:</label>
-                    <textarea id="sinopse" placeholder="Digite a sinopse"></textarea>
+                    <textarea id="sinopse" placeholder="Digite a sinopse" name="sinopse"></textarea>
                 </section>
             </div>
             
