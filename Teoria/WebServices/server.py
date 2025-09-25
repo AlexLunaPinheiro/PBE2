@@ -10,12 +10,16 @@ class MyHandle (SimpleHTTPRequestHandler):
 
     #Método para carregar os arquivos, recebendo como parametro o nome do arquivo
     def carregarArquivo(self, caminho):
-        with open(os.path.join(os.getcwd(), caminho), 'r') as arquivo:#Abre o nosso arquivo através do caminho, lê o conteúdo e guarada na variável "arquivo"
-            content = arquivo.read()#Armazena o conteudo da variavel arquivo em "content"
-            self.send_response(200)#Retorna o status positivo para o cliente
-            self.send_header("content-type", "text/html")#Retorna o tipo do conteúdo
-            self.end_headers()#Determina que os headers foram finalizados
-            self.wfile.write(content.encode("utf-8"))#Escreve através da função wfile o conteúdo na tela com a encodificação "utf-8"
+        # Utilizo um try-except para garantir que o servidor não quebre se um arquivo não for encontrado
+        try:
+            with open(os.path.join(os.getcwd(), caminho), 'r', encoding='utf-8') as arquivo:#Abre o nosso arquivo através do caminho, lê o conteúdo e guarada na variável "arquivo"
+                content = arquivo.read()#Armazena o conteudo da variavel arquivo em "content"
+                self.send_response(200)#Retorna o status positivo para o cliente
+                self.send_header("content-type", "text/html; charset=utf-8")#Retorna o tipo do conteúdo, especificando utf-8
+                self.end_headers()#Determina que os headers foram finalizados
+                self.wfile.write(content.encode("utf-8"))#Escreve através da função wfile o conteúdo na tela com a encodificação "utf-8"
+        except FileNotFoundError:
+            self.send_error(404, "Arquivo não encontrado")
 
     #Método padrão que retorna o conteúdo do index
     def list_directory(self, path):
@@ -36,35 +40,42 @@ class MyHandle (SimpleHTTPRequestHandler):
         #Retorna os diretórios disponpiveis
         return super().list_directory(path)
     
-    #Método GET que retorna o conteúdo da página login
+    #Método GET que retorna o conteúdo das páginas
     def do_GET(self):
-        #Executa a abertura do arquivvo caso o caminho aponte para login
+        # Rota para a página de login
         if self.path == '/login':
-            try:
-                self.carregarArquivo("login.html")#Chama a função para carregar arquivo
-            
-             #Lançamento de exceção caso o arquivo não exista ou não for encontrado
-            except FileNotFoundError:
-                self.send_error(404, "File not Found")
+            self.carregarArquivo("login.html")
 
-        #Executa a abertura do arquivvo caso o caminho aponte para cadastro
+        # Rota para a página de cadastro
         elif self.path == "/cadastro":
-            try:
-                self.carregarArquivo("cadastro.html")
-
-            #Lançamento de exceção caso o arquivo não exista ou não for encontrado
-            except FileNotFoundError:
-                self.send_error(404, "File not Found")
+            self.carregarArquivo("cadastro.html")
         
-        #Executa a abertura do arquivvo caso o caminho aponte para listarFilmes
+        # Rota para a página de listagem de filmes
         elif self.path == "/listarFilmes":
+            self.carregarArquivo("listarFilmes.html")
+
+        # Rota para a API que envia os dados dos filmes
+        elif self.path == '/get_filmes':
+            self.send_response(200)
+            # Defino o cabeçalho como JSON para que o navegador entenda os dados
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            # Envio o dicionário de filmes convertido para o formato JSON
+            self.wfile.write(json.dumps(filmes).encode('utf-8'))
+        
+        #  handler para servir arquivos CSS
+        elif self.path.endswith(".css"):
             try:
-                self.carregarArquivo("listarFilmes.html")
-
-            #Lançamento de exceção caso o arquivo não exista ou não for encontrado
+                with open(os.path.join(os.getcwd(), self.path[1:]), 'r') as css_file:
+                    content = css_file.read()
+                    self.send_response(200)
+                    # Define o tipo de conteúdo correto para arquivos CSS
+                    self.send_header("Content-type", "text/css")
+                    self.end_headers()
+                    self.wfile.write(content.encode("utf-8"))
             except FileNotFoundError:
-                self.send_error(404, "File not Found")
-
+                self.send_error(404, "CSS não encontrado")
+        
         else:
             #Mostra a mensagem de error response no html
             super().do_GET()
@@ -75,60 +86,57 @@ class MyHandle (SimpleHTTPRequestHandler):
  
         if user == usuario and senha == password:
             print("Usuário Logado")
-            self.carregarArquivo("listarFilmes.html")
+            # Redireciona para a página de listagem de filmes após o login
+            self.send_response(302)
+            self.send_header('Location', '/listarFilmes')
+            self.end_headers()
         
     def do_POST(self):
             if self.path == '/send_login':
-                content_length = int(self.headers['Content-length'])
+                content_length = int(self.headers['Content-Length'])
                 body = self.rfile.read(content_length).decode('utf-8')
                 form_data = parse_qs(body)
-    
                 login = form_data.get('usuario', [""])[0]
                 password = form_data.get('senha', [""])[0]
-    
-                self.accont_user(login, password)
-                print("Data Form:")
-                print("Usuario: ", login)        
-                print("Password: ", password)    
+                self.accont_user(login, password)  
 
 
 
             elif self.path == '/send_movies':
-                content_length= int(self.headers['Content-length'])
+                content_length = int(self.headers['Content-Length'])
                 body = self.rfile.read(content_length).decode('utf-8')
                 form_data = parse_qs(body)
 
-                nome = form_data.get('nome', [""])[0]
-                ano = form_data.get('ano', [""])[0]
-                atores = form_data.get('atores',[""])[0]
-                genero = form_data.get('genero',[""])[0]
-                diretor = form_data.get('diretor',[""])[0]
-                produtora = form_data.get('produtora',[""])[0]
-                sinopse = form_data.get('sinpose',[""])[0]
-
+                # Extrai os dados do formulário
                 filme = {
-                    "nome": nome,
-                    "ano":ano,
-                    "atores":atores,
-                    "genero":genero,
-                    "diretor":diretor,
-                    "produtora":produtora,
-                    "sinopse":sinopse
+                    "nome": form_data.get('nome', [""])[0],
+                    "ano": form_data.get('ano', [""])[0],
+                    "atores": form_data.get('atores', [""])[0],
+                    "genero": form_data.get('genero', [""])[0],
+                    "diretor": form_data.get('diretor', [""])[0],
+                    "produtora": form_data.get('produtora', [""])[0],
+                    "sinopse": form_data.get('sinopse', [""])[0]
                 }
+            
+                # Adiciona o novo filme ao dicionário
+                filmes[len(filmes) + 1] = filme
+                print("Filme cadastrado:", filme)
 
-                filmes[len(filmes)+1] = filme
-                print(filmes)
+                # Redireciona o usuário para a página de listagem de filmes
+                self.send_response(302) # 302 é o código para redirecionamento
+                self.send_header('Location', '/listarFilmes')
+                self.end_headers()
 
 
             else:
-                super(MyHandle, self).do_POST()
+                super().do_POST()
         
 #Função principal do programa
 def main():
     port = 8001#Define a porta em que estará rodando o servidor
     server_addres = ('', port)
     httpd = HTTPServer(server_addres, MyHandle)#Variavel que armazena o nosso servidor
-    print(f"Servidor rodando em http://127.0.0.2:{port}")
+    print(f"Servidor rodando em http://127.0.0.1:{port}") 
     httpd.serve_forever()#Deixa o servidor rodando eternamente
 
 
