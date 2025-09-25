@@ -22,7 +22,9 @@ SECRET_KEY = 'django-insecure-56@t-d7k904#ik8gk59%u^5=016i#*9pz7si8mt7$r6r(=)vts
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 SIMPLE_JWT = {
@@ -42,10 +44,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'teste',
     'rest_framework_simplejwt',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',   # ✅ logo após Security
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'livraria.urls'
 
@@ -124,7 +130,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_HOSTS = ['*']
+
+
 
 REST_FRAMEWORK = {
     
@@ -140,3 +147,4 @@ REST_FRAMEWORK = {
     ]
     
 }
+
