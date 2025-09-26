@@ -56,15 +56,21 @@ class MyHandle (SimpleHTTPRequestHandler):
 
         # Rota para a API que envia os dados dos filmes
         elif self.path == '/get_filmes':
-            self.send_response(200)
-            self.send_header("Content-type", "application/json")
-            self.end_headers()
-            try:
-                with open("dados.json", encoding="utf-8") as f:
-                    data = json.load(f)
-            except (FileNotFoundError, json.JSONDecodeError):
-                    data = []
-            self.wfile.write(json.dumps(data).encode('utf-8'))
+            if os.path.exists("dados.json"):
+                try:
+                    with open("dados.json", encoding="utf-8") as f:
+                        self.send_response(200)
+                        self.send_header("Content-type", "application/json")
+                        self.end_headers()
+                        data = json.load(f)
+                        
+                except ( json.JSONDecodeError):
+                        data = []
+                        self.send_response(404)         
+
+                self.wfile.write(json.dumps(data).encode('utf-8'))           
+            else:
+                return {FileNotFoundError: "Caminho não encontrado!"}
         
         #  handler para servir arquivos CSS
         elif self.path.endswith(".css"):
