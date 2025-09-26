@@ -1,0 +1,20 @@
+[
+    {
+        "nome": "Vingadores",
+        "ano": "2014",
+        "atores": "Chris patt",
+        "genero": "aventura",
+        "diretor": "joe russo",
+        "produtora": "marvel studios",
+        "sinopse": "vingadores"
+    },
+    {
+        "nome": "A hora do medo",
+        "ano": "2006",
+        "atores": "Pericles",
+        "genero": "samba",
+        "diretor": "RObertinho Taboado",
+        "produtora": "A24",
+        "sinopse": "asdasd"
+    }
+]

@@ -3,7 +3,7 @@ from http.server import SimpleHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs
 import json
 
-filmes = {}
+filmes = []
 
 #Classe para manipular os métodos e requisições feitas em nosso servidor
 class MyHandle (SimpleHTTPRequestHandler):
@@ -57,11 +57,14 @@ class MyHandle (SimpleHTTPRequestHandler):
         # Rota para a API que envia os dados dos filmes
         elif self.path == '/get_filmes':
             self.send_response(200)
-            # Defino o cabeçalho como JSON para que o navegador entenda os dados
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            # Envio o dicionário de filmes convertido para o formato JSON
-            self.wfile.write(json.dumps(filmes).encode('utf-8'))
+            try:
+                with open("dados.json", encoding="utf-8") as f:
+                    data = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                    data = []
+            self.wfile.write(json.dumps(data).encode('utf-8'))
         
         #  handler para servir arquivos CSS
         elif self.path.endswith(".css"):
@@ -103,6 +106,7 @@ class MyHandle (SimpleHTTPRequestHandler):
 
 
             elif self.path == '/send_movies':
+                global filmes
                 content_length = int(self.headers['Content-Length'])
                 body = self.rfile.read(content_length).decode('utf-8')
                 form_data = parse_qs(body)
@@ -118,9 +122,22 @@ class MyHandle (SimpleHTTPRequestHandler):
                     "sinopse": form_data.get('sinopse', [""])[0]
                 }
             
-                # Adiciona o novo filme ao dicionário
-                filmes[len(filmes) + 1] = filme
-                print("Filme cadastrado:", filme)
+                arquivo = "./dados.json"
+
+                if os.path.exists(arquivo):
+                    with open (arquivo, encoding="utf-8") as lista:
+                        try:
+                            filmes = json.load(lista)
+                        except json.JSONDecodeError:
+                            filmes = []
+
+                    filmes.append(filme)
+                else:
+                    filmes = [filme]
+
+                with open(arquivo, "w", encoding="utf-8") as lista:
+                    json.dump(filmes,lista,indent=4,ensure_ascii=False)
+
 
                 # Redireciona o usuário para a página de listagem de filmes
                 self.send_response(302) # 302 é o código para redirecionamento

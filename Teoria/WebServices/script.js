@@ -6,6 +6,7 @@
                 .then(response => response.json()) 
                 // chamo a função para criar os cards
                 .then(data => {
+                    console.log(data)
                     // elemento container onde os cards serão inseridos
                     const filmesContainer = document.getElementById('filmes-container');
                     
