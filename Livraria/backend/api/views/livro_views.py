@@ -3,11 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from api.models import Livro
 from api.serializers import LivroSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated ,AllowAny
 
 
 class LivroView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     def get(self, request, pk=None):     
         if pk:
             try:
