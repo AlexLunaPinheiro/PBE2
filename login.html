@@ -6,8 +6,19 @@
     <title>login</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="/">LABUBUFLIX</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/cadastro">Cadastro</a></li>
+                <li><a href="/listarFilmes">Listagem</a></li>
+                <li><a href="/login">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
     <main>
             <!-- Quando o botão de envio do formulario for clicado, muda de pagina -->
             <form class="login-form" action="/send_login" method="POST">
@@ -33,6 +44,5 @@
                 
             </form>
     </main>
-
 </body>
 </html>

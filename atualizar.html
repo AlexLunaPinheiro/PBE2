@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Filme</title>
+    <title>Atualização de Filme</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="/">LABUBUFLIX</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/cadastro">Cadastro</a></li>
+                <li><a href="/listarFilmes">Listagem</a></li>
+                <li><a href="/login">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
     <main>
-        <!-- Quando o botão de envio do formulario for clicado, muda de pagina -->
-        <form class="register-form" action="/send_movies" method="POST" >
+        <!-- O ID 'update-form' é usado pelo script.js para identificar esta página -->
+        <form class="register-form" id="update-form">
 
-            <h1>Cadastro de Filme</h1>
+            <h1>Atualização de Filme</h1>
+
+            <!-- Input escondido para guardar o ID do filme que está sendo atualizado -->
+            <input type="hidden" id="filme-id" name="id">
 
             <!-- Agrupa os elementos do form em grid -->
             <div class="form-grid">
@@ -62,11 +77,13 @@
             
             <!-- Seção do botão de cadastrar -->
             <section class="login-field-button">
-                <button type="submit">Cadastrar</button>
+                <button type="submit">Atualizar</button>
             </section>
     
         </form>
     </main>
 
+    <!-- O mesmo script.js usado pela página de listagem agora serve esta página também -->
+    <script src="script.js" defer></script>
 </body>
 </html>

@@ -1,66 +1,114 @@
- function getFilmes(){
-     //requisição para o endpoint /get_filmes
-            fetch('/get_filmes')
-                // Quando a resposta chegar, passa ela para o formato JSON
-                .then(response => response.json()) 
-                // chamo a função para criar os cards
-                .then(data => {
-                    console.log(data)
-                    // elemento container onde os cards serão inseridos
-                    const filmesContainer = document.getElementById('filmes-container');
-                    
-                    // Percorro cada filme retornado pela API
-                    for (const id in data) {
-                        const filme = data[id];
-                        
-                        
-                        const card = document.createElement('div');
-                        card.classList.add('movie-card'); // classe de estilo ao card
-                        
-                        // conteúdo HTML do card, preenchendo com os dados do filme
-                        card.innerHTML = `
-                            <h2>${filme.nome} (${filme.ano})</h2>
-                            <p><strong>Gênero:</strong> ${filme.genero}</p>
-                            <p><strong>Diretor:</strong> ${filme.diretor}</p>
-                            <p><strong>Atores:</strong> ${filme.atores}</p>
-                            <p><strong>Produtora:</strong> ${filme.produtora}</p>
-                            <div class="sinopse">
-                                <strong>Sinopse:</strong>
-                                <p>${filme.sinopse}</p>
-                            </div>
-                            <div class="botoes-crud">
-                                <button class="btn-atualizar" id="atualizar-${filme.id}">atualizar</button>
-                                <button class="btn-apagar" id="apagar-${filme.id}">deletar</button>
-                            </div>
-                        `;
-                        
-                        // adiciona o card recém-criado dentro do container
-                        filmesContainer.appendChild(card);
-                        if (filme.id) {
-                            const botaoAtualizar = document.getElementById(`atualizar-${filme.id}`);
-                            const botaoApagar = document.getElementById(`apagar-${filme.id}`);
+function getFilmes() {
+    const filmesContainer = document.getElementById('filmes-container');
+    // Se o container de filmes não existir na página, a função para de executar.
+    if (!filmesContainer) return;
 
-                            botaoApagar.addEventListener('click', (e)=> {
-                                fetch(`/delete_film/${filme.id}`, { method : 'DELETE'})
-                                    .then(res => res.text())
-                                    .then(msg => {
-                                        card.remove()
-                                    })
-                                    .catch(console.error)
-                                    
-                            })
+    fetch('/get_filmes')
+        .then(response => response.json())
+        .then(data => {
+            filmesContainer.innerHTML = ''; // Limpa a lista antes de adicionar os filmes
 
+            data.forEach(filme => {
+                const card = document.createElement('div');
+                card.classList.add('movie-card');
+
+                card.innerHTML = `
+                    <h2>${filme.nome} (${filme.ano})</h2>
+                    <p><strong>Gênero:</strong> ${filme.genero}</p>
+                    <p><strong>Diretor:</strong> ${filme.diretor}</p>
+                    <p><strong>Atores:</strong> ${filme.atores}</p>
+                    <p><strong>Produtora:</strong> ${filme.produtora}</p>
+                    <div class="sinopse">
+                        <strong>Sinopse:</strong>
+                        <p>${filme.sinopse}</p>
+                    </div>
+                    <div class="botoes-crud">
+                        <button class="btn-atualizar" data-id="${filme.id}">atualizar</button>
+                        <button class="btn-apagar" data-id="${filme.id}">deletar</button>
+                    </div>
+                `;
+                filmesContainer.appendChild(card);
+            });
+
+            // Adiciona os eventos aos botões de apagar
+            document.querySelectorAll('.btn-apagar').forEach(button => {
+                button.addEventListener('click', function () {
+                    const filmeId = this.getAttribute('data-id');
+                    fetch(`/delete_film/${filmeId}`, { method: 'DELETE' })
+                        .then(res => {
+                            if (res.ok) {
+                                this.closest('.movie-card').remove();
+                            }
+                        })
+                        .catch(console.error);
+                });
+            });
+
+            // Adiciona os eventos aos botões de atualizar
+            document.querySelectorAll('.btn-atualizar').forEach(button => {
+                button.addEventListener('click', function () {
+                    const filmeId = this.getAttribute('data-id');
+                    window.location.href = `/atualizar?id=${filmeId}`;
+                });
+            });
+        })
+        .catch(error => console.error('Erro ao buscar filmes:', error));
 }
-                    }
-                })
-                // Se der algum erro na requisição, exibe no console
-                .catch(error => console.error('Erro ao buscar filmes:', error));
- }
 
- 
- 
 
- // evento quando a página terminar de carregar
-        document.addEventListener('DOMContentLoaded', function() {
-           getFilmes();
-        });
+function setupUpdatePage() {
+    const updateForm = document.getElementById('update-form');
+    // Se o formulário de atualização não existir, a função para de executar.
+    if (!updateForm) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const filmeId = params.get('id');
+
+    // Se houver um ID na URL, busca os dados do filme para preencher o formulário
+    if (filmeId) {
+        fetch(`/get_filme/${filmeId}`)
+            .then(response => response.json())
+            .then(filme => {
+                document.getElementById('filme-id').value = filme.id;
+                document.getElementById('nome').value = filme.nome;
+                document.getElementById('ano').value = filme.ano;
+                document.getElementById('atores').value = filme.atores;
+                document.getElementById('genero').value = filme.genero;
+                document.getElementById('diretor').value = filme.diretor;
+                document.getElementById('produtora').value = filme.produtora;
+                document.getElementById('sinopse').value = filme.sinopse;
+            })
+            .catch(error => console.error('Erro ao buscar dados do filme:', error));
+    }
+
+    // Adiciona o evento de 'submit' ao formulário para enviar os dados atualizados
+    updateForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const id = document.getElementById('filme-id').value;
+        const formData = new URLSearchParams(new FormData(this)).toString();
+
+        fetch(`/update_film/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redireciona para a página de listagem após o sucesso
+                window.location.href = '/listarFilmes';
+            }
+        })
+        .catch(error => console.error('Erro ao atualizar filme:', error));
+    });
+}
+
+
+
+// Quando a página carregar, executa ambas as funções.
+// Cada função tem uma verificação interna para só rodar na página correta.
+document.addEventListener('DOMContentLoaded', function () {
+    getFilmes();
+    setupUpdatePage();
+});

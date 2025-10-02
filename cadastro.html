@@ -6,17 +6,25 @@
     <title>Cadastro de Filme</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="/">LABUBUFLIX</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/cadastro">Cadastro</a></li>
+                <li><a href="/listarFilmes">Listagem</a></li>
+                <li><a href="/login">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
     <main>
         <!-- Quando o botão de envio do formulario for clicado, muda de pagina -->
         <form class="register-form" action="/send_movies" method="POST" >
-
             <h1>Cadastro de Filme</h1>
-
             <!-- Agrupa os elementos do form em grid -->
             <div class="form-grid">
-
                 <!-- Seção do input do nome do filme-->
                 <section class="register-field">
                     <label for="nome">Nome do Filme:</label>   
