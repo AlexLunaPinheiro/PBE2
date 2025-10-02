@@ -1,8 +1,11 @@
+import { Autor } from "./autor";
+import { Editora } from "./editora";
+
 export interface Livro {
     id: number;
     titulo: string;
     subtitulo: string;
-    editora: number; // Aqui é o id da editora, pois é um ForeignKey
+    editora: Editora; 
     isbn: string;
     descricao: string;
     idioma: string;
@@ -14,5 +17,5 @@ export interface Livro {
     disponivel: boolean;
     dimensoes: string;
     peso: number; // DecimalField -> number
-    autor: number; // id do autor, por causa do ForeignKey
+    autor: Autor; // id do autor, por causa do ForeignKey
 }

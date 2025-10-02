@@ -20,7 +20,7 @@ import { AuthService } from '../../services/auth-services';
           @for (a of autores(); track a.id) {
             <li style="margin:.25rem 0">
               <strong>{{ a.nome }} {{ a.sobrenome }}</strong>
-              @if (a.nacionalidade) { — <em style="color:#666">{{ a.nacionalidade }}</em> }
+              @if (a.nacionalidade) { — <em style="color:#666">Nacionalidade: {{ a.nacionalidade }}</em> }
               @if (a.data_nasc) { • {{ a.data_nasc }} }
               @if (a.biografia) { <div style="color:#555">{{ a.biografia }}</div> }
             </li>
