@@ -1,10 +1,19 @@
-<section style="max-width:900px;margin:2rem auto;padding:0 1rem">
-      <h1 style="margin:0 0 .75rem">Bem-vindo</h1>
-      <p>Esta é a página inicial.</p>
+<section>
+  <h1 id="Title">Livros</h1>
+  <div class="livros-container">
 
-      <nav style="margin-top:1rem; display:flex; gap:.75rem">
-        <a routerLink="autores">Ver autores</a>
-        <a routerLink="editoras">Ver editoras</a>
-        <a routerLink="livros">Ver livros</a>
-      </nav>
-    </section>
+     @for (livro of livros(); track livro.id) {
+    <div class="livro-card">
+      <img src="https://m.media-amazon.com/images/I/810GtSJg2sL.jpg" alt="Capa do livro">
+
+      
+      <div class="livro-info">
+          <h3>{{ livro.titulo }}</h3>
+          <p class="autor">{{ livro.autor.nome }}</p>
+          <p class="editora">{{ livro.editora.editora }}</p>
+          <p class="preco">{{ livro.preco }}</p>
+      </div>
+    </div>
+  }
+  </div>
+</section>

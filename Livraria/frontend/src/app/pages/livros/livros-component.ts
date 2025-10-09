@@ -3,6 +3,8 @@ import { RouterLink } from '@angular/router';
 import { LivrosServices } from '../../services/livros-services';
 import { Livro } from '../../models/livro';
 import { AuthService } from '../../services/auth-services';
+import { LivrosStoreService } from '../../services/livro-store-service';
+
 const Texto = "";
 
 @Component({
@@ -12,18 +14,8 @@ const Texto = "";
   styleUrls: ['./livros-component.css']
 })
 export class LivrosPage {
-  private svc = inject(LivrosServices);
-  private auth = inject(AuthService);   //Ver o token
-  livros = signal<Livro[]>([]);
-  carregando = signal(true);
-  erro = signal<string | null>(null);
-
-  constructor() {
-    console.log("Token de acesso: ", this.auth.token());
-    
-    this.svc.listar().subscribe({
-      next: (data) => { this.livros.set(data); this.carregando.set(false); },
-      error: () => { this.erro.set('Falha ao carregar livros'); this.carregando.set(false); }
-    });
-  }
+  private store = inject(LivrosStoreService);
+  livros = this.store.livros;
+  carregando = this.store.carregando;
+  erro = this.store.erro;
 }

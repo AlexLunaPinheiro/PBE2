@@ -3,6 +3,7 @@ import { HomeComponet } from './pages/home/home-component';
 import { AutoresPage } from './pages/authors/authors-component';
 import { EditorasPage } from './pages/editoras/editoras-component';
 import { LivrosPage } from './pages/livros/livros-component';
+import { LoginComponent } from './pages/login/login-component'
 
 export const routes: Routes = [
     {
@@ -24,5 +25,9 @@ export const routes: Routes = [
     {
         path:'livros',
         component: LivrosPage
+    },
+    {
+        path:'login',
+        component: LoginComponent
     }
 ];

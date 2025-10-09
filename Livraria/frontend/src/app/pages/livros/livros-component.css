@@ -1,5 +1,11 @@
-.tabela-livros {
+section{
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tabela-livros {
+  width: 90%;
   border-collapse: collapse;
   margin-top: 0.5rem;
   font-family: Arial, sans-serif;
