@@ -6,25 +6,21 @@ function getFilmes() {
     fetch('/get_filmes')
         .then(response => response.json())
         .then(data => {
+            
             filmesContainer.innerHTML = ''; // Limpa a lista antes de adicionar os filmes
-
+            console.log(data)
             data.forEach(filme => {
                 const card = document.createElement('div');
                 card.classList.add('movie-card');
 
                 card.innerHTML = `
-                    <h2>${filme.nome} (${filme.ano})</h2>
-                    <p><strong>Gênero:</strong> ${filme.genero}</p>
-                    <p><strong>Diretor:</strong> ${filme.diretor}</p>
-                    <p><strong>Atores:</strong> ${filme.atores}</p>
-                    <p><strong>Produtora:</strong> ${filme.produtora}</p>
-                    <div class="sinopse">
-                        <strong>Sinopse:</strong>
-                        <p>${filme.sinopse}</p>
-                    </div>
+                    <h2>${filme.titulo} (${filme.ano})</h2>
+                    <p><strong>Orçamento:</strong> ${filme.orcamento}</p>
+                    <p><strong>Duração:</strong> ${filme.tempo_duracao}</p>
+                    <p id="poster"><strong>Poster:</strong> ${filme.poster}</p>
                     <div class="botoes-crud">
-                        <button class="btn-atualizar" data-id="${filme.id}">atualizar</button>
-                        <button class="btn-apagar" data-id="${filme.id}">deletar</button>
+                        <button class="btn-atualizar" data-id="${filme.id}">ATUALIZAR</button>
+                        <button class="btn-apagar" data-id="${filme.id}">DELETAR</button>
                     </div>
                 `;
                 filmesContainer.appendChild(card);

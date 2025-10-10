@@ -269,3 +269,10 @@ button:hover{
     border-radius: 15px;
     color:#fff;
 }
+
+#poster {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}

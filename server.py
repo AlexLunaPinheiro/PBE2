@@ -2,6 +2,7 @@ import os
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse
 import json
+from repo.filmesSerializer import FilmeSerializer
 
 filmes = []
 contagemId = 0
@@ -9,21 +10,13 @@ contagemId = 0
 def carregar_dados():
     global filmes
     global contagemId
-    arquivo = "dados.json"
-    if os.path.exists(arquivo):
-        try:
-            with open(arquivo, 'r', encoding="utf-8") as f:
-                filmes = json.load(f)
-                if filmes:
-                    contagemId = max(filme.get("id", 0) for filme in filmes)
-                else:
-                    contagemId = 0
-        except (json.JSONDecodeError, ValueError):
-            filmes = []
-            contagemId = 0
+    filmes = FilmeSerializer.loadFilminhos() or []
+
+    if filmes:
+        contagemId = max(filme.get("id", 0) for filme in filmes)
     else:
-        filmes = []
         contagemId = 0
+
 
 #Classe para manipular os métodos e requisições feitas em nosso servidor
 class MyHandle (SimpleHTTPRequestHandler):
@@ -42,6 +35,8 @@ class MyHandle (SimpleHTTPRequestHandler):
     #Método padrão que retorna o conteúdo do index
     def list_directory(self, path):
         self.carregarArquivo("index.html")
+
+    
 
     #Método GET que retorna o conteúdo das páginas
     def do_GET(self):
@@ -67,7 +62,7 @@ class MyHandle (SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps(filmes).encode('utf-8'))
+            self.wfile.write(json.dumps(filmes, ensure_ascii=False).encode('utf-8'))
         
         elif self.path.startswith('/get_filme/'):
             id_filme = int(self.path.split('/')[-1])
