@@ -17,6 +17,6 @@ class RegisterViewSet(viewsets.ViewSet):
         user = serializer
         if serializer.is_valid():
             user.save()
-            return Response("usuaário criado com sucesso",status = status.HTTP_201_CREATED)
+            return Response("usuário criado com sucesso",status = status.HTTP_201_CREATED)
         else:
             return Response("erro: ",status = status.HTTP_400_BAD_REQUEST)

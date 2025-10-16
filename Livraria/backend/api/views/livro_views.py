@@ -4,6 +4,9 @@ from rest_framework import status
 from api.models import Livro
 from api.serializers import LivroSerializer
 from rest_framework.permissions import IsAuthenticated ,AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
+from api.filters import LivroFilter
 
 
 class LivroView(APIView):
@@ -19,9 +22,12 @@ class LivroView(APIView):
             
         else:
             queryset = Livro.objects.all()
+            filterset = LivroFilter(request.GET, queryset=queryset)
+            if filterset.is_valid():
+                queryset = filterset.qs
             serializer = LivroSerializer(queryset, many = True)
             return Response(serializer.data)
-
+        
     
     def post(self,request):
         serializer = LivroSerializer(data = request.data)

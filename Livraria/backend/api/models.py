@@ -37,6 +37,7 @@ class Livro(models.Model):
     dimensoes = models.CharField()
     peso = models.DecimalField(max_digits=5, decimal_places=2)
     autor = models.ForeignKey(Autor, related_name='livros', on_delete=models.CASCADE)
+    capa = models.TextField()
 
     def __str__(self):
         return f"{self.titulo}"

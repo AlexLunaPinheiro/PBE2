@@ -7,6 +7,7 @@ from api.models import Livro, Autor, Editora
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--arquivo", default="api/population/livros_novo.csv")
+        parser.add_argument("--delete", action="store_true")
         parser.add_argument("--truncate",action="store_true")
         parser.add_argument("--update",action="store_true")
 
@@ -33,6 +34,7 @@ class Command(BaseCommand):
         df["disponivel"] = df["disponivel"].astype(bool)
         df["dimensoes"] = df["dimensoes"].astype(str).str.strip()
         df["peso"] = df["peso"].astype(float)
+        df["imagem_capa"] = df["imagem_capa"].astype(str).str.strip()
 
         
         
@@ -42,13 +44,16 @@ class Command(BaseCommand):
             criados = atualizados = 0 
             for r in df.itertuples(index=False):
                 _, created = Livro.objects.update_or_create(
-                    titulo=r.titulo, subtitulo = r.subtitulo,autor = r.autor, editora= r.editora, isbn = r.isbn,descricao = r.descricao, idioma = r.idioma, ano = r.ano_publicacao, paginas = r.paginas, preco = r.preco , estoque = r. estoque, desconto = r.desconto, disponivel = r.disponivel, dimensoes = r.dimensoes, peso = r.peso 
+                    titulo=r.titulo, subtitulo = r.subtitulo,autor = r.autor, editora= r.editora, isbn = r.isbn,descricao = r.descricao, idioma = r.idioma, ano = r.ano_publicacao, paginas = r.paginas, preco = r.preco , estoque = r. estoque, desconto = r.desconto, disponivel = r.disponivel, dimensoes = r.dimensoes, peso = r.peso , capa =  r.imagem_capa
                 )
                 criados += int(created)
                 atualizados +=(not created)
 
 
             self.stdout.write(self.style.SUCCESS(f"Criados: {criados} | Atualizados: {atualizados}"))
+        elif o["delete"]:
+            Livro.objects.all().delete()
+        
         else:
             objs = []
             for r in df.itertuples(index=False):
@@ -69,7 +74,8 @@ class Command(BaseCommand):
                     desconto=r.desconto,
                     disponivel=r.disponivel,
                     dimensoes=r.dimensoes,
-                    peso=r.peso
+                    peso=r.peso,
+                    capa=r.imagem_capa
                 ))
             
             Livro.objects.bulk_create(objs, ignore_conflicts=True)
