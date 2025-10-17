@@ -21,7 +21,7 @@
     </header>
     <main>
         <!-- Quando o botão de envio do formulario for clicado, muda de pagina -->
-        <form class="register-form" action="/send_movies" method="POST" >
+        <form class="register-form" method="POST">
             <h1>Cadastro de Filme</h1>
             <!-- Agrupa os elementos do form em grid -->
             <div class="form-grid">
@@ -34,39 +34,57 @@
                 <!-- Seção do input do ano de lançamento-->
                 <section class="register-field">
                     <label for="ano">Ano:</label>
-                    <input type="text" id="ano" placeholder="Digite o ano de lançamento" name="ano" required>
+                    <input type="number" id="ano" placeholder="Digite o ano de lançamento" name="ano" required>
+                </section>
+
+                <!-- Seção do input do orçamento do filme-->
+                <section class="register-field">
+                    <label for="orçamento">Orçamento:</label>
+                    <input type="number" id="orcamento" placeholder="Digite o orçamento" name="orcamento" required>
+                </section>
+
+                <!-- Seção do input da duração do filme-->
+                <section class="register-field">
+                    <label for="duracao">Duração:</label>
+                    <input type="time" id="duracao" placeholder="Digite a duração" name="duracao" required>
+                </section>
+
+                <!-- Seção do input do poster do filme-->
+                <section class="register-field">
+                    <label for="poster">Poster:</label>
+                    <input type="text" id="poster" placeholder="Digite a url do poster" name="poster" required>
                 </section>
 
                 <!-- Seção do input dos atores-->
-                <section class="register-field">
+                <!-- <section class="register-field">
                     <label for="atores">Atores:</label>
                     <input type="text" id="atores" placeholder="Digite os atores principais" name="atores" required>
-                </section>
+                </section> -->
 
                 <!-- Seção do input do gênero -->
-                <section class="register-field">
+                <!-- <section class="register-field">
                     <label for="genero">Gênero:</label>
                     <input type="text" id="genero" placeholder="Digite o gênero do filme" name="genero" required>
-                </section>
+                </section> -->
 
                 <!-- Seção do input do diretor -->
-                <section class="register-field">
+                <!-- <section class="register-field">
                     <label for="diretor">Diretor:</label>
                     <input type="text" id="diretor" placeholder="Digite o diretor" name="diretor" required>
-                </section>
+                </section> -->
 
                 <!-- Seção do input da produtora -->
-                <section class="register-field">
+                <!-- <section class="register-field">
                     <label for="produtora">Produtora:</label>
                     <input type="text" id="produtora" placeholder="Digite a produtora" name="produtora" required>
-                </section>
+                </section> -->
 
                 <!-- Seção do texarea de sinopse, a classe full width faz o elemento ocupar todo o espaço do form -->
-                <section class="register-field full-width">
+                <!-- <section class="register-field full-width">
                     <label for="sinopse">Sinopse:</label>
                     <textarea id="sinopse" placeholder="Digite a sinopse" name="sinopse" required></textarea>
                 </section>
-            </div>
+            </div> -->
             
             <!-- Seção do botão de cadastrar -->
             <section class="login-field-button">
@@ -75,6 +93,6 @@
     
         </form>
     </main>
-
+<script src="postFilmes.js"></script>
 </body>
 </html>

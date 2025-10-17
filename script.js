@@ -15,7 +15,7 @@ function getFilmes() {
 
                 card.innerHTML = `
                     <h2>${filme.titulo} (${filme.ano})</h2>
-                    <p><strong>Orçamento:</strong> ${filme.orcamento}</p>
+                    <p><strong>Orçamento:R$</strong> ${filme.orcamento}</p>
                     <p><strong>Duração:</strong> ${filme.tempo_duracao}</p>
                     <p id="poster"><strong>Poster:</strong> ${filme.poster}</p>
                     <div class="botoes-crud">

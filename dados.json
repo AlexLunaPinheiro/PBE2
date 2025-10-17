@@ -1,12 +1,202 @@
 [
     {
         "id": 1,
-        "nome": "homem de Ferro",
-        "ano": "2009",
-        "atores": "Robert Downey Junior",
-        "genero": "Aventura",
-        "diretor": "Sla",
-        "produtora": "Marvel",
-        "sinopse": "PArabens pra voce nessa data querida"
+        "titulo": "Old Boy",
+        "orcamento": 3000000.0,
+        "tempo_duracao": "2:00:00",
+        "ano": 2003,
+        "poster": "https://midias.jb.com.br/_midias/jpg/2023/09/22/oldboy__2_-784027.jpg"
+    },
+    {
+        "id": 2,
+        "titulo": "Onde os fracos não tem vez",
+        "orcamento": 25000000.0,
+        "tempo_duracao": "2:02:00",
+        "ano": 2008,
+        "poster": "https://m.media-amazon.com/images/S/pv-target-images/d3ace3a42566abd92090b2823b312711b6bab90e80240a5bfaac60bb65e06d81.jpg"
+    },
+    {
+        "id": 3,
+        "titulo": "Gente Grande",
+        "orcamento": 75000000.0,
+        "tempo_duracao": "1:42:00",
+        "ano": 2010,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/f/fe/Grownupsmovie.jpg"
+    },
+    {
+        "id": 4,
+        "titulo": "LEGO batman: O filme",
+        "orcamento": 80000000.0,
+        "tempo_duracao": "1:44:00",
+        "ano": 2017,
+        "poster": "https://m.media-amazon.com/images/M/MV5BMTcyNTEyOTY0M15BMl5BanBnXkFtZTgwOTAyNzU3MDI@._V1_FMjpg_UX1000_.jpg"
+    },
+    {
+        "id": 5,
+        "titulo": "Faça ela voltar",
+        "orcamento": 15000000.0,
+        "tempo_duracao": "1:39:00",
+        "ano": 2025,
+        "poster": "https://m.media-amazon.com/images/M/MV5BMDI5ZDc3Y2UtMTIyNC00Zjc3LTk0ZGUtN2U0ZmNmYjYzOTE1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+    },
+    {
+        "id": 6,
+        "titulo": "Kairo",
+        "orcamento": 25000000.0,
+        "tempo_duracao": "1:58:00",
+        "ano": 2001,
+        "poster": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt0286751%2F&psig=AOvVaw1176zkZoe4GjGWNFy_KQGK&ust=1759603811425000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCJj_5JXZiJADFQAAAAAdAAAAABAE"
+    },
+    {
+        "id": 7,
+        "titulo": "Estômago",
+        "orcamento": 1000000.0,
+        "tempo_duracao": "1:53:00",
+        "ano": 2007,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/thumb/1/18/P%C3%B4ster_Est%C3%B4mago.jpg/250px-P%C3%B4ster_Est%C3%B4mago.jpg"
+    },
+    {
+        "id": 8,
+        "titulo": "Ponte para terabitia",
+        "orcamento": 20000000.0,
+        "tempo_duracao": "1:36:00",
+        "ano": 2007,
+        "poster": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.adorocinema.com%2Ffilmes%2Ffilme-118164%2F&psig=AOvVaw0xQYJyiEKOMYE6e_GtUsV-&ust=1759604890318000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCNixv5fdiJADFQAAAAAdAAAAABAE"
+    },
+    {
+        "id": 9,
+        "titulo": "O gato",
+        "orcamento": 109000000.0,
+        "tempo_duracao": "1:22:00",
+        "ano": 2003,
+        "poster": "https://m.media-amazon.com/images/S/pv-target-images/ea34a4f3d3464d5a8c0694c8d46b80280f73d15db21e0e1342a4bffc53e07580.jpg"
+    },
+    {
+        "id": 10,
+        "titulo": "Rocky, Um lutador",
+        "orcamento": 860000.0,
+        "tempo_duracao": "1:42:00",
+        "ano": 1976,
+        "poster": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.amazon.com.br%2FRocky-Sylvester-Stallone%2Fdp%2FB000059H99&psig=AOvVaw2kz3LysO9h-8XoXPqB0OTp&ust=1759605856327000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCLiTkOPgiJADFQAAAAAdAAAAABAE"
+    },
+    {
+        "id": 11,
+        "titulo": "Eu Sou a Lenda",
+        "orcamento": 150000000.0,
+        "tempo_duracao": "1:41:00",
+        "ano": 2007,
+        "poster": "https://m.media-amazon.com/images/I/71QXkS0Xz+L._AC_UF894,1000_QL80_.jpg"
+    },
+    {
+        "id": 12,
+        "titulo": "Como Eu Era Antes de Você",
+        "orcamento": 20000000.0,
+        "tempo_duracao": "1:50:00",
+        "ano": 2016,
+        "poster": "https://m.media-amazon.com/images/I/71NzVzfuMZL._AC_UF894,1000_QL80_.jpg"
+    },
+    {
+        "id": 13,
+        "titulo": "Crepúsculo",
+        "orcamento": 37000000.0,
+        "tempo_duracao": "2:01:00",
+        "ano": 2008,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/9/9e/Twilight_Poster.jpg"
+    },
+    {
+        "id": 14,
+        "titulo": "Harry Potter e as Relíquias da Morte",
+        "orcamento": 250000000.0,
+        "tempo_duracao": "2:10:00",
+        "ano": 2011,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/3/3d/Harry_Potter_and_the_Deathly_Hallows_Part_2.jpg"
+    },
+    {
+        "id": 15,
+        "titulo": "Carros 2",
+        "orcamento": 200000000.0,
+        "tempo_duracao": "1:53:00",
+        "ano": 2011,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/3/34/Cars2Poster.jpg"
+    },
+    {
+        "id": 16,
+        "titulo": "Midsommar",
+        "orcamento": 9000000.0,
+        "tempo_duracao": "2:28:00",
+        "ano": 2019,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/b/b9/Midsommar.png"
+    },
+    {
+        "id": 17,
+        "titulo": "Donnie Darko",
+        "orcamento": 4500000.0,
+        "tempo_duracao": "1:53:00",
+        "ano": 2001,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/0/0b/Donnie_Darko_poster.jpg"
+    },
+    {
+        "id": 18,
+        "titulo": "Indiana Jones e os Caçadores da Arca Perdida",
+        "orcamento": 20000000.0,
+        "tempo_duracao": "1:55:00",
+        "ano": 1981,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/4/4e/Raiders_of_the_Lost_Ark.jpg"
+    },
+    {
+        "id": 19,
+        "titulo": "De Volta para o Futuro",
+        "orcamento": 19000000.0,
+        "tempo_duracao": "1:56:00",
+        "ano": 1985,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/9/9d/Back_to_the_Future.jpg"
+    },
+    {
+        "id": 20,
+        "titulo": "Réquiem para um Sonho",
+        "orcamento": 4500000.0,
+        "tempo_duracao": "1:42:00",
+        "ano": 2000,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/9/92/Requiem_for_a_dream.jpg"
+    },
+    {
+        "id": 21,
+        "titulo": "À Espera de um Milagre",
+        "orcamento": 60000000.0,
+        "tempo_duracao": "3:09:00",
+        "ano": 1999,
+        "poster": "https://upload.wikimedia.org/wikipedia/pt/d/dc/The_Green_Mile.jpg"
+    },
+    {
+        "id": 22,
+        "titulo": "teste",
+        "orcamento": 2331.0,
+        "tempo_duracao": "2:03:06",
+        "ano": 2006,
+        "poster": "teste"
+    },
+    {
+        "id": 23,
+        "titulo": "Paulo guina",
+        "orcamento": 0.0,
+        "tempo_duracao": "1:30:23",
+        "ano": 2015,
+        "poster": "ursos"
+    },
+    {
+        "id": 24,
+        "titulo": "teste",
+        "orcamento": 2.0,
+        "tempo_duracao": "1:30:23",
+        "ano": 2333,
+        "poster": "teste"
+    },
+    {
+        "id": 25,
+        "titulo": "teste",
+        "orcamento": 2.0,
+        "tempo_duracao": "1:30:23",
+        "ano": 2014,
+        "poster": "teste"
     }
 ]

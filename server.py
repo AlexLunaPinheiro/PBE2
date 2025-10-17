@@ -114,33 +114,31 @@ class MyHandle (SimpleHTTPRequestHandler):
             self.accont_user(login, password)
 
         elif self.path == '/send_movies':
-            global contagemId
-            content_length = int(self.headers['Content-Length'])
+            content_length = int(self.headers.get('Content-Length', 0))
             body = self.rfile.read(content_length).decode('utf-8')
             form_data = parse_qs(body)
 
-            carregar_dados()
-            contagemId += 1
-            
             filme = {
-                "id": contagemId,
                 "nome": form_data.get('nome', [""])[0],
                 "ano": form_data.get('ano', [""])[0],
-                "atores": form_data.get('atores', [""])[0],
-                "genero": form_data.get('genero', [""])[0],
-                "diretor": form_data.get('diretor', [""])[0],
-                "produtora": form_data.get('produtora', [""])[0],
-                "sinopse": form_data.get('sinopse', [""])[0]
+                "orcamento": form_data.get('orcamento', [""])[0],
+                "duracao": form_data.get('duracao', [""])[0],
+                "poster": form_data.get('poster', [""])[0],
             }
 
-            filmes.append(filme)
+            response_code = FilmeSerializer.criarFiliminho(filme)
 
-            with open("dados.json", "w", encoding="utf-8") as f:
-                json.dump(filmes, f, indent=4, ensure_ascii=False)
-
-            self.send_response(302)
-            self.send_header('Location', '/listarFilmes')
+            self.send_response(response_code)
+            self.send_header('Content-Type', 'application/json')
             self.end_headers()
+
+            if response_code == 201:
+                self.wfile.write(b'{"message": "Filme cadastrado com sucesso"}')
+            elif response_code == 409:
+                self.wfile.write(b'{"message": "Filme ja cadastrado"}')
+            else:
+                self.wfile.write(b'{"message": "Erro ao cadastrar filme"}')
+
 
         else:
             super().do_POST()
