@@ -1,0 +1,38 @@
+<div class="login-container">
+  <h2>Login</h2>
+
+  <form (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-group">
+      <label for="username">Usuário</label>
+      <input
+        id="username"
+        type="text"
+        [(ngModel)]="username"
+        name="username"
+        required
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input
+        id="password"
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+    </div>
+
+    <button type="submit" [disabled]="loading || !username || !password">
+      Entrar
+    </button>
+
+    <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+  </form>
+
+  <div *ngIf="loading" class="loading">
+    <p>Autenticando...</p>
+  </div>
+</div>

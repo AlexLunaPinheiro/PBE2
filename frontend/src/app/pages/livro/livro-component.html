@@ -1,0 +1,55 @@
+<section class="book-page">
+  <a routerLink="/home" class="back-link">← Voltar</a>
+
+  @if (carregando()) {
+    <p>Carregando livro...</p>
+  } @else if (erro()) {
+    <p class="erro">{{ erro() }}</p>
+  } @else if (livro()) {
+    <div class="book-container">
+      <!-- Imagem principal -->
+      <div class="book-images">
+        <img [src]="livro()?.capa" alt="Capa do livro" class="book-cover" />
+      </div>
+
+      <!-- Informações principais -->
+      <div class="book-info">
+        <h1 class="book-title">{{ livro()?.titulo }}</h1>
+        @if (livro()?.subtitulo) {
+          <p class="book-subtitle">{{ livro()?.subtitulo }}</p>
+        }
+
+        <p class="book-author">
+          Por <strong>{{ livro()?.autor?.nome }} {{ livro()?.autor?.sobrenome }}</strong>
+        </p>
+
+        <p class="book-publisher">
+          Editora: <span>{{ livro()?.editora?.editora }}</span> • {{ livro()?.ano }}
+        </p>
+
+        <p class="book-language">Idioma: {{ livro()?.idioma }}</p>
+
+        <p class="book-price">
+          R$ {{ livro()?.preco }}
+          @if (livro()?.desconto) {
+            <span class="discount">-{{ livro()?.desconto }}%</span>
+          }
+        </p>
+
+        <button class="buy-button">Adicionar ao carrinho</button>
+
+        @if (livro()?.descricao) {
+          <p class="book-description">{{ livro()?.descricao }}</p>
+        }
+
+        <div class="book-details">
+          <p><strong>ISBN:</strong> {{ livro()?.isbn }}</p>
+          <p><strong>Páginas:</strong> {{ livro()?.paginas }}</p>
+          <p><strong>Peso:</strong> {{ livro()?.peso }}g</p>
+          <p><strong>Dimensões:</strong> {{ livro()?.dimensoes }}</p>
+          <p><strong>Estoque:</strong> {{ livro()?.estoque }}</p>
+        </div>
+      </div>
+    </div>
+  }
+</section>

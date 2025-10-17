@@ -1,0 +1,41 @@
+<section>
+  <h1 id="Title">Livros</h1>
+
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="filtro"
+      (input)="buscarSugestoes()"
+      placeholder="Buscar por título..."
+      class="search-input"
+    />
+
+    <!-- Dropdown de sugestões -->
+    <ul *ngIf="sugestoes().length > 0" class="suggestions">
+      @for (livro of sugestoes(); track livro.id) {
+        <li (click)="irParaLivro(livro.id)">
+          <img [src]="livro.capa" alt="Capa" />
+          <span>{{ livro.titulo }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="livros-container">
+    @for (livro of livros(); track livro.id) {
+      <a
+        [routerLink]="['/livros', livro.id]"
+        class="livro-card"
+        style="text-decoration:none;color:inherit"
+      >
+        <img [src]="livro.capa" alt="Capa do livro" />
+        <div class="livro-info">
+          <h3>{{ livro.titulo }}</h3>
+          <p class="autor">{{ livro.autor.nome }}</p>
+          <p class="editora">{{ livro.editora.editora }}</p>
+          <p class="preco">R$ {{ livro.preco }}</p>
+        </div>
+      </a>
+    }
+  </div>
+</section>

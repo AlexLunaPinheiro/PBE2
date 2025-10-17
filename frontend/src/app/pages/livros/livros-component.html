@@ -1,0 +1,54 @@
+<section >
+  @if (carregando()) {
+    <p>Carregando…</p>
+  } @else if (erro()) {
+    <p style="color:#c62828">{{ erro() }}</p>
+  } @else {
+    <table class="tabela-livros">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Subtítulo</th>
+          <th>Autor</th>
+          <th>Editora</th>
+          <th>ISBN</th>
+          <th>Descrição</th>
+          <th>Idioma</th>
+          <th>Ano</th>
+          <th>Páginas</th>
+          <th>Preço</th>
+          <th>Estoque</th>
+          <th>Desconto</th>
+          <th>Disponibilidade</th>
+          <th>Dimensões</th>
+          <th>Peso</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (livro of livros(); track livro.id) {
+          <tr>
+            <td><strong>{{ livro.titulo }}</strong></td>
+            <td>{{ livro.subtitulo }}</td>
+            <td>{{ livro.autor.nome }} {{ livro.autor.sobrenome }}</td>
+            <td>{{ livro.editora.editora }}</td>
+            <td>{{ livro.isbn }}</td>
+            <td>{{ livro.descricao }}</td>
+            <td>{{ livro.idioma }}</td>
+            <td>{{ livro.ano }}</td>
+            <td>{{ livro.paginas }}</td>
+            <td>R$ {{ livro.preco }}</td>
+            <td>{{ livro.estoque }} un.</td>
+            <td>R$ {{ livro.desconto }}</td>
+            <td>{{ livro.disponivel ? 'Disponível' : 'Indisponível' }}</td>
+            <td>{{ livro.dimensoes }}</td>
+            <td>{{ livro.peso }} kg</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <nav style="margin-top:1rem">
+    <a routerLink="/">Voltar ao início</a>
+  </nav>
+</section>
